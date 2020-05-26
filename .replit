@@ -1,0 +1,2 @@
+language = "c"
+run = "clang-7 -pthread -lm -o main 21400688_정승영_hw6.c \n ./main"
