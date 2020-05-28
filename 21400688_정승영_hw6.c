@@ -12,7 +12,6 @@ void freeNode(Node** head, int size);
 int main() {
 	FILE* fp;
 	bool adjarr[20][20];
-	bool Tarr[20][20];
 	bool temp[400];
 	char ch[20];
 	int elemNum = 0;
@@ -68,21 +67,23 @@ int main() {
 		}
 	}
 
-	for(j = 0; j<chaNum; j++){
-		for(k=0; k<chaNum; k++){
-			Tarr[k][j]=adjarr[j][k];
+	//Transpose Graph
+	for(j=0; j<chaNum; j++){
+		Thead[j] = (Node*)malloc(sizeof(Node));
+	}
+
+	for(j=0; j<chaNum; j++){
+		Node* curNode = head[j]->link;
+		while(curNode != NULL){
+			for(k=0; k<chaNum; k++){
+				if(ch[k]==curNode->a){
+					addNode(Thead[k], ch[j]);
+				}
+			}
+			curNode=curNode->link;
 		}
 	}
 
-	for(j = 0; j<chaNum; j++){
-		Thead[j] = (Node*)malloc(sizeof(Node)); //맞아
-		Thead[j]->link = NULL;
-		for(k = 0; k<chaNum; k++){
-			if(Tarr[j][k]){
-				addNode(Thead[j], ch[k]);
-			}
-		}
-	}
 
 	//print out adj list
 	printf("\n### Print out adj list\n\n");
@@ -97,7 +98,7 @@ int main() {
 		printf(" NULL \n");
 	}
 
-	//print out adj list
+	//print out Transpost adj list
 	printf("\n### Print out Transposed adj list\n\n");
 	for(j=0; j<chaNum; j++){
 		Node* curNode = Thead[j]->link;
